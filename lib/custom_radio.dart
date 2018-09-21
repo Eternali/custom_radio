@@ -45,6 +45,7 @@ class _CustomRadioState extends State<CustomRadio> with SingleTickerProviderStat
     super.initState();
     _controller = AnimationController(duration: widget.duration, vsync: this);
     _animations = widget.animsBuilder(_controller);
+    _animations.forEach((anim) => anim.addListener(() => setState(() {  })));
     if (widget.checked)
       _controller.value = 1.0;
     else
