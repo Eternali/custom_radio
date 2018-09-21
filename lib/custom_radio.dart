@@ -81,9 +81,10 @@ class _CustomRadioState extends State<CustomRadio> with SingleTickerProviderStat
       _updateState();
     }
 
+    final anims = _animations.map<double>((anim) => anim.value).toList();
     return widget.builder(
       context: context,
-      animValues: _animations.map<double>((anim) => anim.value),
+      animValues: anims.length > 0 ? anims : [widget.checked ? 1.0 : 0.0],
       updateState: _updateState,
       value: widget.value,
     );
