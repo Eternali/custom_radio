@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 
 typedef List<Animation> AnimationsBuilder(AnimationController controller);
 
-typedef Widget RadioBuilder<T>({
+typedef Widget RadioBuilder<U>({
   BuildContext context,
-  List<double> animValues,
+  List<U> animValues,
   Function updateState,
-  T value,
+  bool checked,
 });
 
-class CustomRadio<T> extends StatefulWidget {
+class CustomRadio<T, U> extends StatefulWidget {
 
-  final RadioBuilder<T> builder;
+  final RadioBuilder builder;
   final Duration duration;
   final AnimationsBuilder animsBuilder;
   final T value;
@@ -31,11 +31,11 @@ class CustomRadio<T> extends StatefulWidget {
   }) : assert(duration != null), super(key: key);
 
   @override
-  State<CustomRadio> createState() => _CustomRadioState();
+  State<CustomRadio> createState() => _CustomRadioState<U>();
 
 }
 
-class _CustomRadioState extends State<CustomRadio> with SingleTickerProviderStateMixin {
+class _CustomRadioState<U> extends State<CustomRadio> with SingleTickerProviderStateMixin {
 
   AnimationController _controller;
   List<Animation> _animations;
@@ -82,12 +82,12 @@ class _CustomRadioState extends State<CustomRadio> with SingleTickerProviderStat
       _updateState();
     }
 
-    final anims = _animations.map<double>((anim) => anim.value).toList();
+    final anims = _animations.map<U>((anim) => anim.value).toList();
     return widget.builder(
       context: context,
       animValues: anims.length > 0 ? anims : [widget.checked ? 1.0 : 0.0],
       updateState: _updateState,
-      value: widget.value,
+      checked: widget.checked,
     );
   }
 
