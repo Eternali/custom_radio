@@ -12,7 +12,6 @@ typedef Widget RadioBuilder<U>({
 });
 
 class CustomRadio<T, U> extends StatefulWidget {
-
   final RadioBuilder builder;
   final Duration duration;
   final AnimationsBuilder animsBuilder;
@@ -28,15 +27,15 @@ class CustomRadio<T, U> extends StatefulWidget {
     @required this.builder,
     @required this.value,
     @required this.groupValue,
-  }) : assert(duration != null), super(key: key);
+  })  : assert(duration != null),
+        super(key: key);
 
   @override
   State<CustomRadio> createState() => _CustomRadioState<U>();
-
 }
 
-class _CustomRadioState<U> extends State<CustomRadio> with SingleTickerProviderStateMixin {
-
+class _CustomRadioState<U> extends State<CustomRadio>
+    with SingleTickerProviderStateMixin {
   AnimationController _controller;
   List<Animation> _animations;
 
@@ -45,7 +44,7 @@ class _CustomRadioState<U> extends State<CustomRadio> with SingleTickerProviderS
     super.initState();
     _controller = AnimationController(duration: widget.duration, vsync: this);
     _animations = widget.animsBuilder(_controller);
-    _animations.forEach((anim) => anim.addListener(() => setState(() {  })));
+    _animations.forEach((anim) => anim.addListener(() => setState(() {})));
     if (widget.checked)
       _controller.value = 1.0;
     else
@@ -63,22 +62,21 @@ class _CustomRadioState<U> extends State<CustomRadio> with SingleTickerProviderS
       if (widget.checked && _controller.status != AnimationStatus.completed) {
         _controller.forward();
       } else {
-        _controller.reverse()
-          .then((Null value) {
-            setState(() {  });
-          });
+        _controller.reverse().then((Null value) {
+          setState(() {});
+        });
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (
-      (widget.checked &&
-      (_controller.status == AnimationStatus.dismissed || _controller.status == AnimationStatus.reverse)) ||
-      (!widget.checked &&
-      (_controller.status == AnimationStatus.completed || _controller.status == AnimationStatus.forward))
-    ) {
+    if ((widget.checked &&
+            (_controller.status == AnimationStatus.dismissed ||
+                _controller.status == AnimationStatus.reverse)) ||
+        (!widget.checked &&
+            (_controller.status == AnimationStatus.completed ||
+                _controller.status == AnimationStatus.forward))) {
       _updateState();
     }
 
@@ -90,5 +88,4 @@ class _CustomRadioState<U> extends State<CustomRadio> with SingleTickerProviderS
       checked: widget.checked,
     );
   }
-
 }
