@@ -8,7 +8,7 @@ This widget leaves everything up to the user by allowing them to provide their o
 On top of that, an animations builder can also be provided. This gets passed a parent animation controller with which the user can then use to create a list of animations that can animate the widgets transition between states.
 
 # Installation
-Simply add `custom_radio: ^0.1.0` as a dependancy in your pubspec.yaml file.
+Simply add `custom_radio: ^0.1.1` as a dependancy in your pubspec.yaml file.
 Then `import 'package:custom_radio/custom_radio.dart';` wherever you need it.
 
 # Example
