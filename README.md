@@ -11,7 +11,14 @@ On top of that, an animations builder can also be provided. This gets passed a p
 Simply add `custom_radio: ^0.1.1` as a dependancy in your pubspec.yaml file.
 Then `import 'package:custom_radio/custom_radio.dart';` wherever you need it.
 
-# Example
+# Examples
+You can even recreate the default animation provided by _Radio_:
+```
+CustomRadio<int, double>(
+    
+)
+```
+
 ```
 import 'package:custom_radio/custom_radio.dart';
 import 'package:flutter/material.dart';

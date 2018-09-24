@@ -1,3 +1,11 @@
-## [0.0.1] - TODO: Add release date.
+## 0.1.0
 
-* TODO: Describe initial release.
+* Initial release.
+
+## 0.1.1
+* Updated documentation.
+
+## 0.1.2
+* Updated documentation.
+* Added LICENSE
+* Added more examples

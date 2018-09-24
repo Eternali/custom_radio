@@ -2,7 +2,7 @@ library custom_radio;
 
 import 'package:flutter/material.dart';
 
-typedef List<Animation> AnimationsBuilder(AnimationController controller);
+typedef List<Animation<U>> AnimationsBuilder<U>(AnimationController controller);
 
 typedef Widget RadioBuilder<U>({
   BuildContext context,
@@ -11,15 +11,53 @@ typedef Widget RadioBuilder<U>({
   bool checked,
 });
 
+/// A custom radio widget.
+///
+/// Used to select between a number of mutually exclusive values. When one radio
+/// widget in a group is selected, the other radios in the group cease to
+/// be selected. The values are of type `T`, the type parameter of the [CustomRadio]
+/// class. Enums are commonly used for this purpose.
+/// 
+/// Animation values are of type `U`, this allows for stronger typing if only one
+/// type of animation is required. This can be set to `dynamic` if more than one type
+/// of animation is required.
 class CustomRadio<T, U> extends StatefulWidget {
-  final RadioBuilder builder;
+  /// Builds the radio button.
+  final RadioBuilder<U> builder;
+
+  /// The duration of the animation controller
   final Duration duration;
-  final AnimationsBuilder animsBuilder;
+
+  /// Returns the list of child animations whose values will be passed to the builder.
+  /// Called on initState.
+  final AnimationsBuilder<U> animsBuilder;
+  
+  /// The value represented by this radio button.
   final T value;
+  
+  /// The currently selected value for this group of radio buttons.
+  /// 
+  /// This radio button is considered selected if its [value] matches the
+  /// [groupValue].
   final T groupValue;
 
   bool get checked => value == groupValue;
 
+  /// Creates a custom radio widget.
+  /// 
+  /// The widget itself does not maintain any state. Instead, it is up to
+  /// the user to rebuild the radio widget when [groupValue] changes.
+  /// The widget will automatically update its animation controller when
+  /// it detects a change.
+  /// 
+  /// If no [animsBuilder] is passed, the widget will switch between selected
+  /// states with no animation.
+  /// 
+  /// The following arguments are required:
+  /// 
+  /// * [value] and [groupValue] together determine whether the radio button
+  ///   is selected.
+  /// * [builder] creates the visual layout of the widget.
   CustomRadio({
     Key key,
     this.animsBuilder,
