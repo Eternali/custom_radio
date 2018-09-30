@@ -1,15 +1,13 @@
+/// Copyright (c) 2018 Conrad Heidebrecht. All rights reserved.
+/// Licensed under the MIT license. See LICENSE file in the project root for details.
+
 library custom_radio;
 
 import 'package:flutter/material.dart';
 
-typedef List<Animation<U>> AnimationsBuilder<U>(AnimationController controller);
+typedef AnimationsBuilder<U> = List<Animation<U>> Function(AnimationController);
 
-typedef Widget RadioBuilder<U>({
-  BuildContext context,
-  List<U> animValues,
-  Function updateState,
-  bool checked,
-});
+typedef RadioBuilder<T, U> = Widget Function({ BuildContext context, List<U> animValues, Function updateState, T value });
 
 /// A custom radio widget.
 ///
@@ -23,7 +21,7 @@ typedef Widget RadioBuilder<U>({
 /// of animation is required.
 class CustomRadio<T, U> extends StatefulWidget {
   /// Builds the radio button.
-  final RadioBuilder<U> builder;
+  final RadioBuilder<int, dynamic> builder;
 
   /// The duration of the animation controller
   final Duration duration;
@@ -123,7 +121,7 @@ class _CustomRadioState<U> extends State<CustomRadio>
       context: context,
       animValues: anims.length > 0 ? anims : [widget.checked ? 1.0 : 0.0],
       updateState: _updateState,
-      checked: widget.checked,
+      value: widget.value,
     );
   }
 }

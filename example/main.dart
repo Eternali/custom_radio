@@ -26,12 +26,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   _MyHomePageState() {
-    customBuilder = (int value) {
+    customBuilder = () {
       return (
           {BuildContext context,
           List<dynamic> animValues,
           Function updateState,
-          bool checked}) {
+          int value}) {
         return GestureDetector(
           onTap: () {
             setState(() {
@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             end: Colors.green)
                         .animate(controller),
                   ],
-              builder: customBuilder(0)),
+              builder: customBuilder()),
           CustomRadio<int, dynamic>(
             value: 1,
             groupValue: widget.radioValue,
@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           end: Colors.red)
                       .animate(controller),
                 ],
-            builder: customBuilder(1),
+            builder: customBuilder(),
           ),
           CustomRadio<int, dynamic>(
             value: 2,
@@ -102,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           end: Colors.blue)
                       .animate(controller),
                 ],
-            builder: customBuilder(2),
+            builder: customBuilder(),
           ),
         ],
       ),
