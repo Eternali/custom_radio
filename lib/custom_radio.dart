@@ -5,7 +5,7 @@ library custom_radio;
 
 import 'package:flutter/material.dart';
 
-typedef AnimationsBuilder<U> = List<Animation<U>> Function(AnimationController);
+typedef AnimationsBuilder<T> = List<Animation<T>> Function(AnimationController);
 
 typedef RadioBuilder<T, U> = Widget Function({ BuildContext context, List<U> animValues, Function updateState, T value });
 
@@ -21,7 +21,7 @@ typedef RadioBuilder<T, U> = Widget Function({ BuildContext context, List<U> ani
 /// of animation is required.
 class CustomRadio<T, U> extends StatefulWidget {
   /// Builds the radio button.
-  final RadioBuilder<int, dynamic> builder;
+  final RadioBuilder<T, U> builder;
 
   /// The duration of the animation controller
   final Duration duration;
