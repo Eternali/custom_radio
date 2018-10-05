@@ -13,12 +13,12 @@ typedef RadioBuilder<T, U> = Widget Function({ BuildContext context, List<U> ani
 ///
 /// Used to select between a number of mutually exclusive values. When one radio
 /// widget in a group is selected, the other radios in the group cease to
-/// be selected. The values are of type `T`, the type parameter of the [CustomRadio]
+/// be selected. The values are of type `T`, the first type parameter of the [CustomRadio]
 /// class. Enums are commonly used for this purpose.
 /// 
-/// Animation values are of type `U`, this allows for stronger typing if only one
-/// type of animation is required. This can be set to `dynamic` if more than one type
-/// of animation is required.
+/// Animation values are of type `U`, the second type parameter of the [CustomRadio] class,
+/// this allows for stronger typing if only one type of animation is required. This can
+/// be set to `dynamic` if more than one type of animation is required.
 class CustomRadio<T, U> extends StatefulWidget {
   /// Builds the radio button.
   final RadioBuilder<T, U> builder;
@@ -49,7 +49,8 @@ class CustomRadio<T, U> extends StatefulWidget {
   /// it detects a change.
   /// 
   /// If no [animsBuilder] is passed, the widget will switch between selected
-  /// states with no animation.
+  /// states with no animation and the [animValues] passed to [builder] will be a
+  /// list with the only element being whether the widget is checked or not.
   /// 
   /// The following arguments are required:
   /// 
@@ -67,10 +68,10 @@ class CustomRadio<T, U> extends StatefulWidget {
         super(key: key);
 
   @override
-  State<CustomRadio> createState() => _CustomRadioState<U>();
+  State<CustomRadio> createState() => _CustomRadioState<T, U>();
 }
 
-class _CustomRadioState<U> extends State<CustomRadio>
+class _CustomRadioState<T, U> extends State<CustomRadio<T, U>>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
   List<Animation> _animations;
@@ -119,7 +120,7 @@ class _CustomRadioState<U> extends State<CustomRadio>
     final anims = _animations.map<U>((anim) => anim.value).toList();
     return widget.builder(
       context: context,
-      animValues: anims.length > 0 ? anims : [widget.checked ? 1.0 : 0.0],
+      animValues: anims.length > 0 ? anims : [widget.checked].cast<dynamic>(),
       updateState: _updateState,
       value: widget.value,
     );
