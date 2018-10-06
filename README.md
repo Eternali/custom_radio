@@ -29,7 +29,7 @@ CustomRadio<String, double>(
   builder: (BuildContext context, List<double> animValues, Function updateState, String value) {
     final alpha = (animValues[0] * 255).toInt();
     return GestureDetector(
-      onTap:  () {
+      onTap: () {
         setState(() {
           widget.radioValue = value;
         });
