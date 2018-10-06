@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 typedef AnimationsBuilder<T> = List<Animation<T>> Function(AnimationController);
 
-typedef RadioBuilder<T, U> = Widget Function({ BuildContext context, List<U> animValues, Function updateState, T value });
+typedef RadioBuilder<T, U> = Widget Function(BuildContext context, List<U> animValues, Function updateState, T value);
 
 /// A custom radio widget.
 ///
@@ -119,10 +119,10 @@ class _CustomRadioState<T, U> extends State<CustomRadio<T, U>>
 
     final anims = _animations.map<U>((anim) => anim.value).toList();
     return widget.builder(
-      context: context,
-      animValues: anims.length > 0 ? anims : [widget.checked].cast<dynamic>(),
-      updateState: _updateState,
-      value: widget.value,
+      context,
+      anims.length > 0 ? anims : [widget.checked].cast<dynamic>(),
+      _updateState,
+      widget.value,
     );
   }
 }

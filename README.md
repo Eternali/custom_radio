@@ -12,49 +12,102 @@ Simply add `custom_radio: ^0.1.2` as a dependancy in your pubspec.yaml file.
 Then `import 'package:custom_radio/custom_radio.dart';` wherever you need it.
 
 # Examples
-![](example/example.gif)
+![](example.gif)
 
 If only one animation type is required then it can be specified to enable stronger typing.
 ```
-CustomRadio<double, >
-```
-![](single_example.gif)
-
-But any combination of animation types are supported.
-```
-CustomRadio<int, dynamic>(
-  value: 0,
+CustomRadio<String, double>(
+  value: 'First',
   groupValue: widget.radioValue,
-  duration: Duration(milliseconds: 800),
+  duration: Duration(milliseconds: 500),
   animsBuilder: (AnimationController controller) => [
     CurvedAnimation(
       parent: controller,
-      curve: Curves.ease,
-    ),
-    ColorTween(begin: Colors.greenAccent.withAlpha(200), end: Colors.green).animate(controller),
+      curve: Curves.easeInOut
+    )
   ],
-  builder: ({ BuildContext context, List<dynamic> animValues, Function updateState, bool checked }) {
+  builder: (BuildContext context, List<double> animValues, Function updateState, String value) {
+    final alpha = (animValues[0] * 255).toInt();
     return GestureDetector(
-      onTap: () {
+      onTap:  () {
         setState(() {
-          widget.radioValue = 0;
+          widget.radioValue = value;
         });
       },
       child: Container(
-        width: double.infinity,
-        height: animValues[0] * 50 + 80,
-        color: animValues[1],
-        child: Center(
-          child: Text(
-            value.toString()
+        padding: EdgeInsets.all(32.0),
+        margin: EdgeInsets.all(12.0),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Theme.of(context).primaryColor.withAlpha(alpha),
+          border: Border.all(
+            color: Theme.of(context).primaryColor.withAlpha(255 - alpha),
+            width: 4.0,
           )
         ),
-      ),
+        child: Text(
+          value,
+          style: Theme.of(context).textTheme.body1.copyWith(fontSize: 24.0),
+        )
+      )
     );
   }
 )
 ```
-![](multi_example.gif)
+![](simple_example.gif)
+
+But any combination of animation types are supported.
+```
+CustomRadio<String, dynamic>(
+  value: 'First',
+  groupValue: widget.radioValue,
+  animsBuilder: (AnimationController controller) => [
+    CurvedAnimation(
+      parent: controller,
+      curve: Curves.easeInOut
+    ),
+    ColorTween(
+      begin: Colors.white,
+      end: Colors.deepPurple
+    ).animate(controller),
+    ColorTween(
+      begin: Colors.deepPurple,
+      end: Colors.white
+    ).animate(controller),
+  ],
+  builder: (BuildContext context, List<dynamic> animValues, Function updateState, String value) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          widget.radioValue = value;
+        });
+      },
+      child: Container(
+        alignment: Alignment.center,
+        margin: EdgeInsets.all(18.0),
+        padding: EdgeInsets.all(32.0 + animValues[0] * 12.0),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: animValues[1],
+          border: Border.all(
+            color: animValues[2],
+            width: 2.0
+          )
+        ),
+        child: Text(
+          value,
+          style: Theme.of(context).textTheme.body1.copyWith(
+            fontSize: 20.0,
+            color: animValues[2]
+          ),
+        )
+      )
+    );
+  },
+)
+```
+![](dynamic_example.gif)
 
 You can even recreate the default animation provided by _Radio_ and add your own personal flairs!
 Note: The full example can be found in the `example` directory
@@ -134,4 +187,4 @@ CustomRadio<int, double>(
   }
 )
 ```
-![](radio_clone.gif)
+![](radio_clone_example.gif)

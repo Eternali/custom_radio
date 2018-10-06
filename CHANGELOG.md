@@ -6,6 +6,7 @@
 * Updated documentation.
 
 ## 0.1.2
+* Fixed generics in CustomRadio
 * Updated documentation.
 * Added LICENSE
 * Added more examples
