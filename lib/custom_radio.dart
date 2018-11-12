@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 typedef AnimationsBuilder<T> = List<Animation<T>> Function(AnimationController);
 
-typedef RadioBuilder<T, U> = Widget Function(BuildContext context, List<U> animValues, Function updateState, T value);
+typedef RadioBuilder<T, U> = Widget Function(@deprecated BuildContext context, List<U> animValues, Function updateState, T value);
 
 /// A custom radio widget.
 ///
@@ -20,7 +20,13 @@ typedef RadioBuilder<T, U> = Widget Function(BuildContext context, List<U> animV
 /// this allows for stronger typing if only one type of animation is required. This can
 /// be set to `dynamic` if more than one type of animation is required.
 class CustomRadio<T, U> extends StatefulWidget {
-  /// Builds the radio button.
+/// Builds the radio button with animation state.
+/// 
+/// [BuildContext] context into which to build,
+/// [List<U>] animValues (current values of running animations),
+/// [Function] updateState (call to manually update the state of the widget),
+/// [T] copy of radio value of the widget
+
   final RadioBuilder<T, U> builder;
 
   /// The duration of the animation controller
@@ -99,9 +105,7 @@ class _CustomRadioState<T, U> extends State<CustomRadio<T, U>>
       if (widget.checked && _controller.status != AnimationStatus.completed) {
         _controller.forward();
       } else {
-        _controller.reverse().then((Null value) {
-          setState(() {});
-        });
+        _controller.reverse();
       }
     });
   }
