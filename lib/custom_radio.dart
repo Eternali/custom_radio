@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 typedef AnimationsBuilder<T> = List<Animation<T>> Function(AnimationController);
 
-typedef RadioBuilder<T, U> = Widget Function(@deprecated BuildContext context, List<U> animValues, Function updateState, T value);
+typedef RadioBuilder<T, U> = Widget Function(BuildContext context, List<U> animValues, Function updateState, T value);
 
 /// A custom radio widget.
 ///
