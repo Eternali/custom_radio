@@ -10,3 +10,6 @@
 * Updated documentation.
 * Added LICENSE
 * Added more examples
+
+## 0.1.3
+* Updated documentation and exmaples

@@ -1,15 +1,15 @@
 # custom_radio
 
-An animatable radio button that can be customized to the max.
+A flexible and animatable radio button.
 
 I found it strange that flutter only provides two radio widgets: __Radio__ and __RadioListTile__
 The main issue with these widgets is that both of them force the use of the default Android leading animated circular icon.
-This widget leaves everything up to the user by allowing them to provide their own builder function.
-On top of that, an animations builder can also be provided. This gets passed a parent animation controller with which the user can then use to create a list of animations that can animate the widgets transition between states.
+The CustomRadio widget leaves everything up to the user by allowing them to provide their own builder function.
+On top of that, an animations builder can also be provided. This gets passed a parent animation controller with which the user can then use to create a list of animations to animate the widget's transition between states.
 
 # Installation
-Simply add `custom_radio: ^0.1.2` as a dependancy in your pubspec.yaml file.
-Then `import 'package:custom_radio/custom_radio.dart';` wherever you need it.
+Simply add `custom_radio: ^0.1.3` as a dependancy in your pubspec.yaml file.
+Then `import 'package:custom_radio/custom_radio.dart';` wherever it's needed.
 
 # Examples
 ![](example.gif)
